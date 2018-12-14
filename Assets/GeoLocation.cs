@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeoOrientation : MonoBehaviour {
+public class GeoLocation : MonoBehaviour {
 
-	public static GeoOrientation Instance;
+	public static GeoLocation Instance;
 	public static Vector3 MagnetNormVec = new Vector3(1,0,0);
 	public static Quaternion Rotation = Quaternion.identity;
+
+	public static float Latitude = 0;
+	public static float Longitude = 0;
+	public static float Altitude = 0;
+
+
 
 	private Compass _compass;
 	private Gyroscope _gyro;
@@ -23,6 +29,8 @@ public class GeoOrientation : MonoBehaviour {
 
 		_compass = Input.compass;
 		_compass.enabled = true;
+
+		Input.location.Start(0.1f, 0.1f);
 	}
 
 	// Update is called once per frame
@@ -33,7 +41,7 @@ public class GeoOrientation : MonoBehaviour {
 		//const float maxX = 0.5
 
 		//Rotation = Quaternion.FromToRotation(Input.gyro.gravity.normalized, MagnetNormVec);
-		Vector2 Magnet2D = new Vector2(GeoOrientation.MagnetNormVec.x, GeoOrientation.MagnetNormVec.z).normalized;
+		Vector2 Magnet2D = new Vector2(MagnetNormVec.x, MagnetNormVec.z).normalized;
 		Vector3 localUp = -_gyro.gravity.normalized;
 
 		Vector3 planarMagnet = MagnetNormVec;
@@ -47,6 +55,10 @@ public class GeoOrientation : MonoBehaviour {
 		float angle_y = Vector3.SignedAngle(Vector3.down, -localUp, Vector3.right);
 
 		Rotation = Quaternion.AngleAxis(angle_x, Vector3.up) * Quaternion.AngleAxis(angle_y, Vector3.right);
+
+		UpdateLocation();
+		//print(Input.location.status);
+		//print(Input.location.isEnabledByUser);
 	}
 
 	public static Vector3 GetGravity()
@@ -54,6 +66,11 @@ public class GeoOrientation : MonoBehaviour {
 		return Instance._gyro.gravity.normalized;
 	}
 
-
+	private static void UpdateLocation()
+	{
+		Latitude = Input.location.lastData.latitude;
+		Longitude = Input.location.lastData.longitude;
+		Altitude = Input.location.lastData.altitude;
+	}
 
 }

@@ -37,8 +37,10 @@ public class FPSCounter : MonoBehaviour
 
 		//GUI.Label(new Rect(Screen.width-250, 0, 200, 200), string.Format("fps:{0}", fps.ToString("n")), bb);
 		//Print magnetic vector:
+		string pos = GeoLocation.Latitude.ToString() + " " + GeoLocation.Longitude.ToString() + " " + GeoLocation.Altitude.ToString();
 
-		GUI.Label(new Rect(Screen.width - 350, 0, 200, 200), GeoOrientation.GetGravity().ToString(), bb);
+
+		GUI.Label(new Rect(0, 0, 200, 200), ObjectGPS.FocusPosition.ToString(), bb);
 	}
 
 }

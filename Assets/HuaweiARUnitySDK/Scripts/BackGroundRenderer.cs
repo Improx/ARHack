@@ -58,7 +58,7 @@
 			//float angle = (Mathf.Atan2(Magnet2D.x, Magnet2D.y) + 180) * Mathf.Rad2Deg;
 			//m_camera.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
 
-			m_camera.transform.rotation = GeoOrientation.Rotation;
+			m_camera.transform.rotation = GeoLocation.Rotation;
 			//Input.location.
 
 			//
