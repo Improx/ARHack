@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class MessageService
 {
-	public const string ServerUrl = "http://www.my-server.com";
+	public const string ServerUrl = "http://worldmessage.serveo.net/messages";
 
 	public static async void GetMessagesAroundAsync(LocationInfo coordinates, float radius)
 	{
@@ -24,7 +24,8 @@ public class MessageService
 				Debug.Log(www.downloadHandler.text);
 
 				// TODO: Check this
-				JsonUtility.FromJson<MessageData[]>(www.downloadHandler.text);
+				MessageServiceResponse data = JsonUtility.FromJson<MessageServiceResponse>(www.downloadHandler.text);
+				Debug.Log("First result: " + data.result[0]);
 
 				// Or retrieve results as binary data
 				byte[] results = www.downloadHandler.data;

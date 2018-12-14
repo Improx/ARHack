@@ -1,10 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MessageData : MonoBehaviour
+[System.Serializable]
+public class MessageData
 {
-	public string Id;
-	public LocationInfo Location;
-	public string Message;
+	public string _id;
+	public Location location;
+	public float altitude;
+	public string text;
+
+	public override string ToString()
+	{
+		return $"{location.coordinates[0]},{location.coordinates[1]},{altitude}: {text}";
+	}
+}
+
+[System.Serializable]
+public class Location
+{
+	public float[] coordinates;
 }
