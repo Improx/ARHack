@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -7,7 +8,10 @@ public class MessageService
 {
 	public const string ServerUrl = "http://worldmessage.serveo.net/messages";
 
-	public static async void GetMessagesAroundAsync(LocationInfo coordinates, float radius)
+	public static async void GetMessagesAroundAsync(
+		LocationInfo coordinates,
+		float radius,
+		Action<MessageData[]> onDoneCallback)
 	{
 		using(UnityWebRequest www = UnityWebRequest.Get(ServerUrl))
 		{
@@ -29,6 +33,8 @@ public class MessageService
 
 				// Or retrieve results as binary data
 				byte[] results = www.downloadHandler.data;
+
+				onDoneCallback(data.result);
 			}
 		}
 	}
