@@ -28,15 +28,17 @@ public class FPSCounter : MonoBehaviour
         }
     }
 
-    void OnGUI()
-    {
-        GUIStyle bb = new GUIStyle();
-        bb.normal.background = null;
-        bb.normal.textColor = new Color(1, 0, 0);
-        bb.fontSize = 50;
+	void OnGUI()
+	{
+		GUIStyle bb = new GUIStyle();
+		bb.normal.background = null;
+		bb.normal.textColor = new Color(1, 0, 0);
+		bb.fontSize = 50;
 
-        GUI.Label(new Rect(Screen.width-250, 0, 200, 200), string.Format("fps:{0}", fps.ToString("n")), bb);
+		//GUI.Label(new Rect(Screen.width-250, 0, 200, 200), string.Format("fps:{0}", fps.ToString("n")), bb);
+		//Print magnetic vector:
 
-    }
+		GUI.Label(new Rect(Screen.width - 350, 0, 200, 200), GeoOrientation.GetGravity().ToString(), bb);
+	}
 
 }
