@@ -76,5 +76,10 @@ public class MessageSkeleton : MonoBehaviour {
 
 			//Neck.transform.rotation = Quaternion.LookRotation(bodyForward, bodyUp);
 		}
+
+		//Set whole objects position
+		ObjectGPS objectGPS = GetComponentInParent<ObjectGPS>();
+		objectGPS.transform.position = objectGPS.RoomPosition;
+		objectGPS.transform.rotation = Quaternion.LookRotation(-transform.position.normalized, Vector3.up);
 	}
 }

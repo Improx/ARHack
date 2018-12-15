@@ -47,11 +47,11 @@
             BackGroundMaterial.SetVector(rightTopBottom, new Vector4(transformedUVCoords[4], transformedUVCoords[5],
                 transformedUVCoords[6], transformedUVCoords[7]));
             Pose p = ARFrame.GetPose();
-			//m_camera.transform.position = p.position;
-			m_camera.transform.position = Vector3.zero;
+			m_camera.transform.position = p.position;
+			m_camera.transform.rotation = p.rotation;
 
-			//m_camera.transform.rotation = p.rotation;
 			//MY:
+			//m_camera.transform.position = Vector3.zero;
 			//m_camera.transform.rotation = Input.gyro.attitude * new Quaternion(0,0,1,0);
 			//Vector3 magneticField = Input.compass.rawVector;
 			//Vector2 Magnet2D = new Vector2(GeoOrientation.MagnetNormVec.x, GeoOrientation.MagnetNormVec.z).normalized;
@@ -64,7 +64,7 @@
 			//
 			//m_camera.projectionMatrix = ARSession.GetProjectionMatrix(m_camera.nearClipPlane, m_camera.farClipPlane);
 
-            if (m_backgroundRenderer == null)
+			if (m_backgroundRenderer == null)
             {
                 m_backgroundRenderer = new ARBackgroundRenderer();
                 m_backgroundRenderer.backgroundMaterial = BackGroundMaterial;

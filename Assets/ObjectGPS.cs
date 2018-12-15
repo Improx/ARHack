@@ -8,7 +8,11 @@ public class ObjectGPS : MonoBehaviour {
 	public float Longitude = 0;
 	public float Altitude = 0;
 
+	private static int _currentObject_i = 0;
+
 	public static Vector3 FocusPosition;
+
+	[HideInInspector] public Vector3 RoomPosition = Vector3.zero;
 
 	private void Awake()
 	{
@@ -17,16 +21,21 @@ public class ObjectGPS : MonoBehaviour {
 
 	private void Update()
 	{
-		transform.position = RelativePosition();
-		transform.rotation = Quaternion.identity;
+		if (_currentObject_i >= MessageManager.VisibleMessages.Count) _currentObject_i = 0;
+
+		RoomPosition = RelativePosition();
+		//transform.rotation = Quaternion.identity;
 		FocusPosition = RelativePosition();
-		
+
 		//print(transform.position);
+
+		_currentObject_i++;
 	}
 
 	public Vector3 RelativePosition()
 	{
-		Vector3 pos = new Vector3(0, -5.4f, 20f);
+		Vector3 startPos = new Vector3(0, -3, 5);
+		Vector3 pos = startPos + Utils.SpiralDistribution(_currentObject_i, 5, 0.3f, 40);
 		return pos;
 
 		//Old:
@@ -59,5 +68,7 @@ public class ObjectGPS : MonoBehaviour {
 
 		return new Vector3((float) x, (float) y, (float) z);
 	}
+
+	
 
 }
