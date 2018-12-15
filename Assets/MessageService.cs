@@ -8,6 +8,24 @@ public class MessageService
 {
 	public const string ServerUrl = "https://worldmessage.localtunnel.me/messages";
 
+	public static void UpvoteMessage(int id)
+	{
+		string url = ServerUrl + "/upvote/" + id;
+		using(UnityWebRequest www = UnityWebRequest.Put(url, string.Empty))
+		{
+			Debug.Log("upvoting");
+		}
+	}
+
+	public static void DownvoteMessage(int id)
+	{
+		string url = ServerUrl + "/downvote/" + id;
+		using(UnityWebRequest www = UnityWebRequest.Put(url, string.Empty))
+		{
+			Debug.Log("downvoting");
+		}
+	}
+
 	public static async void SaveMessage(MessageData msg)
 	{
 		WWWForm form = new WWWForm();
