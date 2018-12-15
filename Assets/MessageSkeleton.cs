@@ -27,6 +27,7 @@ public class MessageSkeleton : MonoBehaviour {
 
 	private void Update()
 	{
+		Vector3 animOffset = Vector3.zero;
 		if (Anim != null)
 		{
 			_currentFrame++;
@@ -74,12 +75,14 @@ public class MessageSkeleton : MonoBehaviour {
 			Vector3 bodyUp = Vector3.Cross(bodyright, bodyForward);
 			Body_Center.transform.rotation = Quaternion.LookRotation(bodyForward, bodyUp);
 
+			animOffset = frame.Positions[14];
+
 			//Neck.transform.rotation = Quaternion.LookRotation(bodyForward, bodyUp);
 		}
 
 		//Set whole objects position
 		ObjectGPS objectGPS = GetComponentInParent<ObjectGPS>();
-		objectGPS.transform.position = objectGPS.RoomPosition;
+		objectGPS.transform.position = objectGPS.RoomPosition + animOffset; //Moves the object prefab
 		objectGPS.transform.rotation = Quaternion.LookRotation(-transform.position.normalized, Vector3.up);
 	}
 }
