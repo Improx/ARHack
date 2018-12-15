@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Common;
 using HuaweiARInternal;
 using HuaweiARUnitySDK;
@@ -87,11 +88,12 @@ public class RecordAnimation : MonoBehaviour
 		print("STARTED RECORDING");
 	}
 
-	public void StopRecording()
+	public async void StopRecording()
 	{
 		Recording = false;
 		print("STOPPED RECORDING");
-		SendLastAnimation();
+
+		await Task.Run(() => SendLastAnimation());
 	}
 
 	public void SendLastAnimation()
