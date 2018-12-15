@@ -91,7 +91,7 @@
             Right_Hip =8,
             Right_Knee = 9,
             Right_Ankle = 10,
-            Left_Hip =11,
+            Left_Hip = 11,
             Left_Knee = 12,
             Left_Ankle = 13,
             Body_Center = 14,

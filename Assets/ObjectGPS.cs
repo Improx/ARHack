@@ -19,7 +19,7 @@ public class ObjectGPS : MonoBehaviour {
 	{
 		transform.position = RelativePosition();
 		FocusPosition = RelativePosition();
-		print(transform.position);
+		//print(transform.position);
 	}
 
 	public Vector3 RelativePosition()

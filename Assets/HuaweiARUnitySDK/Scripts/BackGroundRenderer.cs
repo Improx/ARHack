@@ -62,7 +62,7 @@
 			//Input.location.
 
 			//
-			m_camera.projectionMatrix = ARSession.GetProjectionMatrix(m_camera.nearClipPlane, m_camera.farClipPlane);
+			//m_camera.projectionMatrix = ARSession.GetProjectionMatrix(m_camera.nearClipPlane, m_camera.farClipPlane);
 
             if (m_backgroundRenderer == null)
             {
