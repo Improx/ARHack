@@ -17,7 +17,7 @@ public class ModelSelectionArrows : MonoBehaviour
 
 	private CanvasGroup _canvasGroup;
 
-	public UnityEvent<int> OnModelIndexChanged;
+	public UnityEvent OnModelIndexChanged;
 
 	private void Start()
 	{
@@ -40,28 +40,26 @@ public class ModelSelectionArrows : MonoBehaviour
 
 	public void IncrementModelIndex()
 	{
-		// TODO: Replace with actual count
-		int modelCount = 3;
+		int modelCount = WorldMessage.NumModels;;
 		int newId = MessageRecorder.Instance.CurrentMessage.modelId + 1;
 
 		MessageRecorder.Instance.CurrentMessage.modelId = newId >= modelCount ? 0 : newId;
 
 		UpdateThumbnail();
 
-		OnModelIndexChanged.Invoke(newId);
+		OnModelIndexChanged.Invoke();
 	}
 
 	public void DecrementModelIndex()
 	{
-		// TODO: Replace with actual count
-		int modelCount = 3;
+		int modelCount = WorldMessage.NumModels;
 		int newId = MessageRecorder.Instance.CurrentMessage.modelId - 1;
 
 		MessageRecorder.Instance.CurrentMessage.modelId = newId < 0 ? modelCount - 1 : newId;
 
 		UpdateThumbnail();
 
-		OnModelIndexChanged.Invoke(newId);
+		OnModelIndexChanged.Invoke();
 	}
 
 	private void UpdateThumbnail()
