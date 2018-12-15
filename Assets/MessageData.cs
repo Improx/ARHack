@@ -8,12 +8,13 @@ public class MessageData
 	public Location location;
 	public float altitude;
 	public string text;
-	public BoneTransform[][] frames;
+	public BoneTransform[][] animation;
 	public int points;
 
 	public override string ToString()
 	{
-		return $"{location.coordinates[0]},{location.coordinates[1]},{altitude}: {text} ({points} points)";
+		//Debug.Log(animation.Length);
+		return $"{location.coordinates[0]},{location.coordinates[1]},{altitude}: {text} ({points} points).";
 	}
 }
 
