@@ -99,10 +99,6 @@ public class MessageService
 
 				// TODO: Check this
 				MessageServiceResponse data = JsonUtility.FromJson<MessageServiceResponse>(www.downloadHandler.text);
-				Debug.Log("First result: " + data.result[0]);
-
-				// Or retrieve results as binary data
-				byte[] results = www.downloadHandler.data;
 
 				onDoneCallback?.Invoke(data.result);
 			}
