@@ -16,7 +16,7 @@ const BoneTransform = new mongoose.Schema({
 
 
 const Frame = new mongoose.Schema({
-  bones: [BoneTransform]
+  bones: [BoneTransform],
 })
 
 const MessageSchema = new mongoose.Schema({
@@ -41,6 +41,7 @@ const MessageSchema = new mongoose.Schema({
     required: false,
     default: undefined
   },
+  modelId: String,
   points: {
     type: Number,
     required: true,
