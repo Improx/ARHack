@@ -8,6 +8,13 @@ public class LoadingMessage : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI _loadingText;
 
+	public static LoadingMessage Instance;
+
+	private void Awake()
+	{
+		Instance = this;
+	}
+
 	public void SetLoadingText(string text = "Uploading...")
 	{
 		_loadingText.text = text;

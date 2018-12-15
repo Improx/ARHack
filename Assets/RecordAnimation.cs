@@ -98,6 +98,8 @@ public class RecordAnimation : MonoBehaviour
 
 	public void SendLastAnimation()
 	{
+		LoadingMessage.Instance.SetLoadingText("Uploading...");
+
 		print("Constructing message...");
 		MessageData messageData = new MessageData();
 		messageData.location = new Location
@@ -132,6 +134,8 @@ public class RecordAnimation : MonoBehaviour
 		print("Sending message");
 		MessageService.SaveMessage(messageData);
 		print("Message sent");
+
+		LoadingMessage.Instance.ClearLoadingText();
 	}
 }
 
