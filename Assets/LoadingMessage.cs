@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class LoadingMessage : MonoBehaviour
 {
-	[SerializeField]
 	private TextMeshProUGUI _loadingText;
 
 	public static LoadingMessage Instance;
@@ -13,6 +12,11 @@ public class LoadingMessage : MonoBehaviour
 	private void Awake()
 	{
 		Instance = this;
+	}
+
+	private void Start()
+	{
+		_loadingText = GetComponent<TextMeshProUGUI>();
 	}
 
 	public void SetLoadingText(string text = "Uploading...")

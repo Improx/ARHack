@@ -18,12 +18,18 @@ public class ObjectGPS : MonoBehaviour {
 	private void Update()
 	{
 		transform.position = RelativePosition();
+		transform.rotation = Quaternion.identity;
 		FocusPosition = RelativePosition();
+		
 		//print(transform.position);
 	}
 
 	public Vector3 RelativePosition()
 	{
+		Vector3 pos = new Vector3(0, -5.4f, 20f);
+		return pos;
+
+		//Old:
 		double b = Utils.EarthRadius + Altitude;
 		double c = Utils.EarthRadius + GeoLocation.Altitude;
 

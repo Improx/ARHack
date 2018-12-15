@@ -35,4 +35,9 @@ public static class Utils {
 		return result.normalized;
 	}
 
+	public static Vector3 FlipY (this Vector3 vec)
+	{
+		return new Vector3(vec.x, -vec.y, vec.z);
+	}
+
 }

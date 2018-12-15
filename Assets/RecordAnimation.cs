@@ -35,25 +35,25 @@ public class RecordAnimation : MonoBehaviour
 			body.GetSkeletons(skeletons);
 
 			//Getting bone positions
-			Vector3 neckPos = skeletons[ARBody.SkeletonPointName.Neck].Coordinate3D;
-			Vector3 headPos = skeletons[ARBody.SkeletonPointName.Head_Top].Coordinate3D;
-			Vector3 bodyCenterPos = skeletons[ARBody.SkeletonPointName.Body_Center].Coordinate3D;
+			Vector3 neckPos = skeletons[ARBody.SkeletonPointName.Neck].Coordinate3D.FlipY();
+			Vector3 headPos = skeletons[ARBody.SkeletonPointName.Head_Top].Coordinate3D.FlipY();
+			Vector3 bodyCenterPos = skeletons[ARBody.SkeletonPointName.Body_Center].Coordinate3D.FlipY();
 
-			Vector3 leftShoulderPos = skeletons[ARBody.SkeletonPointName.Left_Shoulder].Coordinate3D;
-			Vector3 leftElbowPos = skeletons[ARBody.SkeletonPointName.Left_Elbow].Coordinate3D;
-			Vector3 leftWristPos = skeletons[ARBody.SkeletonPointName.Left_Wrist].Coordinate3D;
+			Vector3 leftShoulderPos = skeletons[ARBody.SkeletonPointName.Left_Shoulder].Coordinate3D.FlipY();
+			Vector3 leftElbowPos = skeletons[ARBody.SkeletonPointName.Left_Elbow].Coordinate3D.FlipY();
+			Vector3 leftWristPos = skeletons[ARBody.SkeletonPointName.Left_Wrist].Coordinate3D.FlipY();
 
-			Vector3 rightShoulderPos = skeletons[ARBody.SkeletonPointName.Right_Shoulder].Coordinate3D;
-			Vector3 rightElbowPos = skeletons[ARBody.SkeletonPointName.Right_Elbow].Coordinate3D;
-			Vector3 rightWristPos = skeletons[ARBody.SkeletonPointName.Right_Wrist].Coordinate3D;
+			Vector3 rightShoulderPos = skeletons[ARBody.SkeletonPointName.Right_Shoulder].Coordinate3D.FlipY();
+			Vector3 rightElbowPos = skeletons[ARBody.SkeletonPointName.Right_Elbow].Coordinate3D.FlipY();
+			Vector3 rightWristPos = skeletons[ARBody.SkeletonPointName.Right_Wrist].Coordinate3D.FlipY();
 
-			Vector3 leftHipPos = skeletons[ARBody.SkeletonPointName.Left_Hip].Coordinate3D;
-			Vector3 leftKneePos = skeletons[ARBody.SkeletonPointName.Left_Knee].Coordinate3D;
-			Vector3 leftAnklePos = skeletons[ARBody.SkeletonPointName.Left_Ankle].Coordinate3D;
+			Vector3 leftHipPos = skeletons[ARBody.SkeletonPointName.Left_Hip].Coordinate3D.FlipY();
+			Vector3 leftKneePos = skeletons[ARBody.SkeletonPointName.Left_Knee].Coordinate3D.FlipY();
+			Vector3 leftAnklePos = skeletons[ARBody.SkeletonPointName.Left_Ankle].Coordinate3D.FlipY();
 
-			Vector3 rightHipPos = skeletons[ARBody.SkeletonPointName.Right_Hip].Coordinate3D;
-			Vector3 rightKneePos = skeletons[ARBody.SkeletonPointName.Right_Knee].Coordinate3D;
-			Vector3 rightAnklePos = skeletons[ARBody.SkeletonPointName.Right_Ankle].Coordinate3D;
+			Vector3 rightHipPos = skeletons[ARBody.SkeletonPointName.Right_Hip].Coordinate3D.FlipY();
+			Vector3 rightKneePos = skeletons[ARBody.SkeletonPointName.Right_Knee].Coordinate3D.FlipY();
+			Vector3 rightAnklePos = skeletons[ARBody.SkeletonPointName.Right_Ankle].Coordinate3D.FlipY();
 
 			//Actually set bone positions and rotationg in current frame
 			SetBoneToLastFrame(1, neckPos, headPos);
@@ -88,17 +88,17 @@ public class RecordAnimation : MonoBehaviour
 		print("STARTED RECORDING");
 	}
 
-	public async void StopRecording()
+	public void StopRecording()
 	{
 		Recording = false;
 		print("STOPPED RECORDING");
 
-		await Task.Run(() => SendLastAnimation());
+		SendLastAnimation();
 	}
 
 	public void SendLastAnimation()
 	{
-		LoadingMessage.Instance.SetLoadingText("Uploading...");
+		//LoadingMessage.Instance.SetLoadingText("Uploading...");
 
 		print("Constructing message...");
 		MessageData messageData = new MessageData();
@@ -135,7 +135,7 @@ public class RecordAnimation : MonoBehaviour
 		MessageService.SaveMessage(messageData);
 		print("Message sent");
 
-		LoadingMessage.Instance.ClearLoadingText();
+		//LoadingMessage.Instance.ClearLoadingText();
 	}
 }
 
