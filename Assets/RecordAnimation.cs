@@ -68,7 +68,7 @@ public class RecordAnimation : MonoBehaviour {
 
 	}
 
-	private static void SetBoneToLastFrame(int index, Vector3 thisBonePos, Vector3 childBonePos)
+	private void SetBoneToLastFrame(int index, Vector3 thisBonePos, Vector3 childBonePos)
 	{
 		Vector3 boneUp = (childBonePos - thisBonePos).normalized;
 		Vector3 forward = Utils.PerpVectorRight(boneUp);
@@ -78,25 +78,47 @@ public class RecordAnimation : MonoBehaviour {
 		Anim.LastFrame.WorldRotations[index] = worldRot;
 	}
 
-	public static void StartRecording()
+	public void StartRecording()
 	{
 		Anim = new SkeletonAnimation();
 		Recording = true;
 	}
 
 
-	public static void StopRecording()
+	public void StopRecording()
 	{
 		Recording = false;
 		SendLastAnimation();
 	}
 
-	public static void SendLastAnimation()
+	public void SendLastAnimation()
 	{
+		MessageData messageData = new MessageData();
+		messageData.location = new Location
+		{
+			coordinates = new float[] { GeoLocation.Latitude, GeoLocation.Longitude }
+		};
+		messageData.altitude = GeoLocation.Altitude;
+		messageData.text = "Animation Message";
+
+		BoneTransform[][] frames = new BoneTransform[Anim.Frames.Count][];
 		for (int i = 0; i < Anim.Frames.Count; i++)
 		{
-
+			BoneTransform[] frame = new BoneTransform[NumBones];
+			for (int j = 0; j < NumBones; j++)
+			{
+				BoneTransform bone = new BoneTransform();
+				Vector3 pos = Anim.Frames[i].Positions[j];
+				Quaternion rot = Anim.Frames[i].WorldRotations[j];
+				bone.position = new float[] { pos.x, pos.y, pos.z};
+				bone.rotation = new float[] { rot.x, rot.y, rot.z, rot.w};
+				frame[j] = bone;
+			}
+			frames[i] = frame;
 		}
+		messageData.frames = frames;
+
+		MessageService.SaveMessage(messageData);
 	}
 }
 
