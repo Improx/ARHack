@@ -26,6 +26,13 @@ public static class Utils {
 		return distance;
 	}
 
+	public static Vector3 PerpVectorRight(Vector3 vec)
+	{
+		Vector3 auxVector = new Vector3(vec.x, vec.y, -vec.z);
 
+		Vector3 result = Vector3.Cross(vec, auxVector);
+
+		return result.normalized;
+	}
 
 }
