@@ -8,21 +8,39 @@ public class MessageService
 {
 	public const string ServerUrl = "https://worldmessage.localtunnel.me/messages";
 
-	public static void UpvoteMessage(int id)
+	public static async void UpvoteMessage(string id)
 	{
 		string url = ServerUrl + "/upvote/" + id;
-		using(UnityWebRequest www = UnityWebRequest.Put(url, string.Empty))
+		using(UnityWebRequest www = UnityWebRequest.Put(url, "{}"))
 		{
 			Debug.Log("upvoting");
+
+			await www.SendWebRequest();
+
+			if (www.isNetworkError || www.isHttpError)
+			{
+				Debug.Log(www.error);
+			}
+
+			Debug.Log(www.downloadHandler.text);
 		}
 	}
 
-	public static void DownvoteMessage(int id)
+	public static async void DownvoteMessage(string id)
 	{
 		string url = ServerUrl + "/downvote/" + id;
-		using(UnityWebRequest www = UnityWebRequest.Put(url, string.Empty))
+		using(UnityWebRequest www = UnityWebRequest.Put(url, "{}"))
 		{
 			Debug.Log("downvoting");
+
+			await www.SendWebRequest();
+
+			if (www.isNetworkError || www.isHttpError)
+			{
+				Debug.Log(www.error);
+			}
+
+			Debug.Log(www.downloadHandler.text);
 		}
 	}
 
