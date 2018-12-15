@@ -59,8 +59,11 @@ app.get('/messages', (req, res) => {
 
 app.post('/messages', (req, res) => {
   console.log('UPLOADING MESSAGE')
-  console.log(req.body)
-  const {text, latitude, longitude, altitude} = req.body
+  const {text, latitude, longitude, altitude, animation} = req.body
+  
+  console.log(animation)
+
+  const animationParsed = JSON.parse(animation).frames
 
   if(!text || !latitude || !longitude || !altitude) {
     return res.status(500).send('Missing required parameters!')
@@ -72,7 +75,8 @@ app.post('/messages', (req, res) => {
       type: 'Point',
       coordinates: [+latitude, +longitude]
     },
-    altitude: +altitude
+    altitude: +altitude,
+    animation: animationParsed
   })
 
   message.save()

@@ -1,10 +1,18 @@
 const mongoose = require('mongoose')
 
-const MessageSchema = new mongoose.Schema({
-  text: {
-    type: String,
-    required: true
+const BoneTransform = new mongoose.Schema({
+  rotation: {
+    type: [Number],
+    length: 4
   },
+  position: {
+    type: [Number],
+    length: 3
+  }
+})
+
+const MessageSchema = new mongoose.Schema({
+  text: String,
   location: {
     type: {
       type: String,
@@ -19,6 +27,11 @@ const MessageSchema = new mongoose.Schema({
   altitude: {
     type: Number,
     required: true
+  },
+  animation: {
+    type: [[BoneTransform]],
+    required: false,
+    default: undefined
   },
   points: {
     type: Number,
