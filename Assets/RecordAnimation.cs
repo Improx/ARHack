@@ -82,17 +82,20 @@ public class RecordAnimation : MonoBehaviour {
 	{
 		Anim = new SkeletonAnimation();
 		Recording = true;
+		print("STARTED RECORDING");
 	}
 
 
 	public void StopRecording()
 	{
 		Recording = false;
+		print("STOPPED RECORDING");
 		SendLastAnimation();
 	}
 
 	public void SendLastAnimation()
 	{
+		print("Constructing message...");
 		MessageData messageData = new MessageData();
 		messageData.location = new Location
 		{
@@ -118,7 +121,9 @@ public class RecordAnimation : MonoBehaviour {
 		}
 		messageData.frames = frames;
 
+		print("Sending message");
 		MessageService.SaveMessage(messageData);
+		print("Message sent");
 	}
 }
 

@@ -85,7 +85,7 @@ namespace Common
         private void _UpdateBody()
         {
             m_body.GetSkeletons(m_bodySkeletons);
-			print(m_bodySkeletons.Count);
+			//print(m_bodySkeletons.Count);
             foreach (var pair in m_bodySkeletons)
             {
                 if (!pair.Value.Is2DValid)

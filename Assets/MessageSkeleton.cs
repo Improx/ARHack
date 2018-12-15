@@ -15,7 +15,7 @@ public class MessageSkeleton : MonoBehaviour {
 	public Transform Left_Knee;
 	public Transform Body_Center;
 
-	[HideInInspector] public SkeletonAnimation Anim;
+	[HideInInspector] public SkeletonAnimation Anim = null;
 	private int _currentFrame = 0;
 
 	private void Update()
