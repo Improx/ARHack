@@ -40,4 +40,16 @@ public static class Utils {
 		return new Vector3(vec.x, -vec.y, vec.z);
 	}
 
+	public static Vector3 FlipZ(this Vector3 vec)
+	{
+		return new Vector3(vec.x, vec.y, -vec.z);
+	}
+
+	public static Vector3 SpiralDistribution(int sample, float startRadius = 1, float radiusGrowth = 0.2f, float angleGrowth = 30f)
+	{
+		float angle = sample * angleGrowth;
+		float radius = startRadius + sample * radiusGrowth;
+		return radius * new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad));
+	}
+
 }
