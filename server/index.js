@@ -10,7 +10,7 @@ const port = 3000
 
 mongoose.connect(database)
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false, limit: '100mb'}))
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
