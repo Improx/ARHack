@@ -85,6 +85,7 @@ namespace Common
         private void _UpdateBody()
         {
             m_body.GetSkeletons(m_bodySkeletons);
+			print(m_bodySkeletons.Count);
             foreach (var pair in m_bodySkeletons)
             {
                 if (!pair.Value.Is2DValid)
@@ -136,7 +137,7 @@ namespace Common
             bb.fontSize = 40;
             if (m_body.GetTrackingState() == ARTrackable.TrackingState.TRACKING)
             {
-                GUI.Label(new Rect(0, 0, 200, 200), "BodyAction: " + m_body.GetBodyAction(), bb);
+               // GUI.Label(new Rect(0, 0, 200, 200), "BodyAction: " + m_body.GetBodyAction(), bb);
             }
         }
     }
