@@ -32,6 +32,9 @@ public class WorldMessage : MonoBehaviour
 		object_gps.Longitude = data.location.coordinates[1];
 		object_gps.Altitude = data.altitude;
 
+		//Set model
+		SetModel(data.modelId);
+
 		//Animation
 		SkeletonAnimation anim = new SkeletonAnimation();
 		for (int i = 0; i < data.animation.Length; i++)
