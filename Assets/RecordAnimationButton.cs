@@ -44,12 +44,12 @@ public class RecordAnimationButton : MonoBehaviour
 		if (_recording)
 		{
 			SetSpriteStop();
-			OnStopRecording.Invoke();
+			OnStartRecording.Invoke();
 		}
 		else
 		{
 			SetSpriteRecord();
-			OnStartRecording.Invoke();
+			OnStopRecording.Invoke();
 		}
 	}
 

@@ -23,7 +23,6 @@ public class RecordAnimation : MonoBehaviour
 	private void Record()
 	{
 		VisibleBodies.Clear();
-		Anim = new SkeletonAnimation();
 		ARFrame.GetTrackables<ARBody>(VisibleBodies, ARTrackableQueryFilter.ALL);
 		//If see skeleton:
 		if (VisibleBodies.Count > 0)
@@ -73,6 +72,7 @@ public class RecordAnimation : MonoBehaviour
 	private void SetBoneToLastFrame(int index, Vector3 thisBonePos, Vector3 childBonePos)
 	{
 		Vector3 boneUp = (childBonePos - thisBonePos).normalized;
+		if (boneUp.magnitude < 0.05f) boneUp = Vector3.up;
 		Vector3 forward = Utils.PerpVectorRight(boneUp);
 		Quaternion worldRot = Quaternion.LookRotation(forward, boneUp);
 
@@ -105,7 +105,10 @@ public class RecordAnimation : MonoBehaviour
 		messageData.altitude = GeoLocation.Altitude;
 		messageData.text = "Animation Message";
 
+		print("Animation: " + Anim);
+
 		FrameData[] frames = new FrameData[Anim.Frames.Count];
+		print("Frames Num: " + Anim.Frames.Count);
 		for (int i = 0; i < Anim.Frames.Count; i++)
 		{
 			BoneTransform[] frame = new BoneTransform[NumBones];
@@ -113,12 +116,14 @@ public class RecordAnimation : MonoBehaviour
 			{
 				BoneTransform bone = new BoneTransform();
 				Vector3 pos = Anim.Frames[i].Positions[j];
+				print(pos);
 				Quaternion rot = Anim.Frames[i].WorldRotations[j];
+				print(rot);
 				bone.position = new float[] { pos.x, pos.y, pos.z };
 				bone.rotation = new float[] { rot.x, rot.y, rot.z, rot.w };
 				frame[j] = bone;
 			}
-			frames[i].bones = frame;
+			frames[i] = new FrameData { bones = frame };
 		}
 		messageData.animation = frames;
 

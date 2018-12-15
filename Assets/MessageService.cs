@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public class MessageService
 {
-	public const string ServerUrl = "http://worldmessage.serveo.net/messages";
+	public const string ServerUrl = "https://giant-sheep-96.localtunnel.me/messages";
 
 	public static async void SaveMessage(MessageData msg)
 	{
@@ -17,8 +17,9 @@ public class MessageService
 		form.AddField("altitude", msg.altitude.ToString());
 
 		string j = "{\"frames\":[";
-		foreach (FrameData frame in msg.animation)
+		for (int k = 0; k < msg.animation.Length; k++)
 		{
+			FrameData frame = msg.animation[k];
 			j += "{\"bones\":[";
 			for (int i = 0; i < frame.bones.Length; i++)
 			{
@@ -33,6 +34,12 @@ public class MessageService
 				}
 			}
 			j += "]}";
+
+			// Don't add comma at end
+			if (k != msg.animation.Length - 1)
+			{
+				j += ",";
+			}
 		}
 		j += "]}";
 		Debug.Log(j);
