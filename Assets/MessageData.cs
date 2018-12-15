@@ -8,14 +8,19 @@ public class MessageData
 	public Location location;
 	public float altitude;
 	public string text;
-	public BoneTransform[][] animation;
+	public FrameData[] animation;
 	public int points;
 
 	public override string ToString()
 	{
-		//Debug.Log(animation.Length);
-		return $"{location.coordinates[0]},{location.coordinates[1]},{altitude}: {text} ({points} points).";
+		return $"{location.coordinates[0]},{location.coordinates[1]},{altitude}: {text} ({points} points). Animation has {animation.Length} frames!";
 	}
+}
+
+[System.Serializable]
+public class FrameData
+{
+	public BoneTransform[] bones;
 }
 
 [System.Serializable]

@@ -23,6 +23,7 @@ public class RecordAnimation : MonoBehaviour
 	private void Record()
 	{
 		VisibleBodies.Clear();
+		Anim = new SkeletonAnimation();
 		ARFrame.GetTrackables<ARBody>(VisibleBodies, ARTrackableQueryFilter.ALL);
 		//If see skeleton:
 		if (VisibleBodies.Count > 0)
@@ -104,7 +105,7 @@ public class RecordAnimation : MonoBehaviour
 		messageData.altitude = GeoLocation.Altitude;
 		messageData.text = "Animation Message";
 
-		BoneTransform[][] frames = new BoneTransform[Anim.Frames.Count][];
+		FrameData[] frames = new FrameData[Anim.Frames.Count];
 		for (int i = 0; i < Anim.Frames.Count; i++)
 		{
 			BoneTransform[] frame = new BoneTransform[NumBones];
@@ -117,7 +118,7 @@ public class RecordAnimation : MonoBehaviour
 				bone.rotation = new float[] { rot.x, rot.y, rot.z, rot.w };
 				frame[j] = bone;
 			}
-			frames[i] = frame;
+			frames[i].bones = frame;
 		}
 		messageData.animation = frames;
 
