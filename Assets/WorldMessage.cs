@@ -46,13 +46,15 @@ public class WorldMessage : MonoBehaviour
 	public void Upvote()
 	{
 		MessageService.UpvoteMessage(_data._id);
-		_scoreText.text = (_data.points + 1).ToString() + _scoreWord;
+		_data.points++;
+		_scoreText.text = (_data.points).ToString() + _scoreWord;
 		print("upvote");
 	}
 
 	public void Downvote()
 	{
-		MessageService.UpvoteMessage(_data._id);
-		_scoreText.text = (_data.points - 1).ToString() + _scoreWord;
+		MessageService.DownvoteMessage(_data._id);
+		_data.points--;
+		_scoreText.text = (_data.points).ToString() + _scoreWord;
 	}
 }
