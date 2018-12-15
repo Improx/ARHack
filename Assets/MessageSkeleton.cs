@@ -37,12 +37,10 @@ public class MessageSkeleton : MonoBehaviour {
 
 
 			//Actually transform the bones
-			Body_Center.transform.position = transform.position + frame.Positions[14];
-			//Body_Center.transform.rotation = frame.WorldRotations[14];
-			//Body is the only whose up is not really up. It is back
+			
 
 			Neck.transform.position = transform.position + frame.Positions[1];
-			Neck.transform.rotation = frame.WorldRotations[1];
+			//Neck.transform.rotation = frame.WorldRotations[1];
 
 			Right_Shoulder.transform.position = transform.position + frame.Positions[2];
 			Right_Shoulder.transform.rotation = frame.WorldRotations[2];
@@ -67,6 +65,16 @@ public class MessageSkeleton : MonoBehaviour {
 
 			Left_Knee.transform.position = transform.position + frame.Positions[12];
 			Left_Knee.transform.rotation = frame.WorldRotations[12];
+
+			Body_Center.transform.position = (Right_Hip.transform.position + Left_Hip.transform.position) / 2 + 0.2f * Vector3.up;
+			//Body_Center.transform.rotation = frame.WorldRotations[14];
+			//Body is the only whose up is not really up. It is back
+			Vector3 bodyForward = -(Neck.transform.position - Body_Center.transform.position).normalized;
+			Vector3 bodyright = -(Right_Shoulder.transform.position - Left_Shoulder.transform.position).normalized;
+			Vector3 bodyUp = Vector3.Cross(bodyright, bodyForward);
+			Body_Center.transform.rotation = Quaternion.LookRotation(bodyForward, bodyUp);
+
+			//Neck.transform.rotation = Quaternion.LookRotation(bodyForward, bodyUp);
 		}
 	}
 }
