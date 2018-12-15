@@ -17,7 +17,7 @@ public class ModelSelectionArrows : MonoBehaviour
 
 	private CanvasGroup _canvasGroup;
 
-	public UnityEvent OnModelIndexChanged;
+	public UnityEvent<int> OnModelIndexChanged;
 
 	private void Start()
 	{
@@ -48,7 +48,7 @@ public class ModelSelectionArrows : MonoBehaviour
 
 		UpdateThumbnail();
 
-		OnModelIndexChanged.Invoke();
+		OnModelIndexChanged.Invoke(newId);
 	}
 
 	public void DecrementModelIndex()
@@ -61,7 +61,7 @@ public class ModelSelectionArrows : MonoBehaviour
 
 		UpdateThumbnail();
 
-		OnModelIndexChanged.Invoke();
+		OnModelIndexChanged.Invoke(newId);
 	}
 
 	private void UpdateThumbnail()
