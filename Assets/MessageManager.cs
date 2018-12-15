@@ -12,13 +12,6 @@ public class MessageManager : MonoBehaviour
 	private float _time = 0;
 	private float _maxRefreshtime = 10;
 
-	// Use this for initialization
-	void Start()
-	{
-
-	}
-
-	// Update is called once per frame
 	void Update()
 	{
 		_time -= Time.deltaTime;

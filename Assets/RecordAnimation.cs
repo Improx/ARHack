@@ -28,7 +28,7 @@ public class RecordAnimation : MonoBehaviour
 		//If see skeleton:
 		if (VisibleBodies.Count > 0)
 		{
-			
+
 			ARBody body = VisibleBodies[0];
 			//Here, Skeletons = points
 			Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry> skeletons = new Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry>();
@@ -100,24 +100,11 @@ public class RecordAnimation : MonoBehaviour
 	{
 		Recording = false;
 		print("STOPPED RECORDING");
-
-		SendLastAnimation();
 	}
 
 	public void SendLastAnimation()
 	{
 		//LoadingMessage.Instance.SetLoadingText("Uploading...");
-
-		print("Constructing message...");
-		MessageData messageData = new MessageData();
-		messageData.location = new Location
-		{
-			coordinates = new float[] { GeoLocation.Latitude, GeoLocation.Longitude }
-		};
-		messageData.altitude = GeoLocation.Altitude;
-		messageData.text = "Animation Message";
-
-		print("Animation: " + Anim);
 
 		FrameData[] frames = new FrameData[Anim.Frames.Count];
 		print("Frames Num: " + Anim.Frames.Count);
@@ -137,11 +124,8 @@ public class RecordAnimation : MonoBehaviour
 			}
 			frames[i] = new FrameData { bones = frame };
 		}
-		messageData.animation = frames;
 
-		print("Sending message");
-		MessageService.SaveMessage(messageData);
-		print("Message sent");
+		MessageRecorder.Instance.CurrentMessage.animation = frames;
 
 		//LoadingMessage.Instance.ClearLoadingText();
 	}
