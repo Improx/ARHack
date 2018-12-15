@@ -10,7 +10,7 @@ public class RecordAnimation : MonoBehaviour {
 	public static SkeletonAnimation Anim;
 	public static bool Recording = false;
 
-	public static int NumBones = 14;
+	public static int NumBones = 15;
 
 	private static List<ARBody> VisibleBodies = new List<ARBody>();
 
