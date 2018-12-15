@@ -51,6 +51,7 @@ public class MessageService
 		form.AddField("latitude", msg.location.coordinates[0].ToString());
 		form.AddField("longitude", msg.location.coordinates[1].ToString());
 		form.AddField("altitude", msg.altitude.ToString());
+		form.AddField("modelId", msg.modelId.ToString());
 
 		string j = "{\"frames\":[";
 		for (int k = 0; k < msg.animation.Length; k++)

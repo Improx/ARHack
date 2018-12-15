@@ -9,6 +9,7 @@ public class MessageData
 	public float altitude;
 	public string text;
 	public FrameData[] animation;
+	public int modelId;
 	public int points;
 
 	public override string ToString()
