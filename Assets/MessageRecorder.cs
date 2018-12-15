@@ -17,7 +17,8 @@ public class MessageRecorder : MonoBehaviour
 		Instance = this;
 	}
 
-	public void Show()
+	// Called from record button
+	public void InitializeNewMessage()
 	{
 		CurrentMessage = new MessageData();
 		CurrentMessage.location = new Location

@@ -100,9 +100,10 @@ public class RecordAnimation : MonoBehaviour
 	{
 		Recording = false;
 		print("STOPPED RECORDING");
+		ApplyLastAnimation();
 	}
 
-	public void SendLastAnimation()
+	public void ApplyLastAnimation()
 	{
 		//LoadingMessage.Instance.SetLoadingText("Uploading...");
 
@@ -126,7 +127,6 @@ public class RecordAnimation : MonoBehaviour
 		}
 
 		MessageRecorder.Instance.CurrentMessage.animation = frames;
-
 		//LoadingMessage.Instance.ClearLoadingText();
 	}
 }

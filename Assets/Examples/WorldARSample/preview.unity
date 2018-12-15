@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -468,27 +468,22 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114402084613266782, guid: 3f64879ad408b43cfa9090ddf0dee258,
+    - target: {fileID: 114643059990207080, guid: 3f64879ad408b43cfa9090ddf0dee258,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114402084613266782, guid: 3f64879ad408b43cfa9090ddf0dee258,
+    - target: {fileID: 114643059990207080, guid: 3f64879ad408b43cfa9090ddf0dee258,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114402084613266782, guid: 3f64879ad408b43cfa9090ddf0dee258,
         type: 2}
-      propertyPath: m_inputSource
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643059990207080, guid: 3f64879ad408b43cfa9090ddf0dee258,
-        type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114643059990207080, guid: 3f64879ad408b43cfa9090ddf0dee258,
+    - target: {fileID: 114402084613266782, guid: 3f64879ad408b43cfa9090ddf0dee258,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -1190,11 +1185,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1406565588}
     m_Modifications:
-    - target: {fileID: 114584937495193494, guid: 918c58eac49bf4872a9b8692e7684304,
-        type: 2}
-      propertyPath: OnStopRecording.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 224042584441937316, guid: 918c58eac49bf4872a9b8692e7684304,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -1294,47 +1284,17 @@ Prefab:
         type: 2}
       propertyPath: OnStopRecording.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1652698656}
-    - target: {fileID: 114584937495193494, guid: 918c58eac49bf4872a9b8692e7684304,
-        type: 2}
-      propertyPath: OnStopRecording.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114584937495193494, guid: 918c58eac49bf4872a9b8692e7684304,
-        type: 2}
-      propertyPath: OnStopRecording.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1406565590}
     - target: {fileID: 114584937495193494, guid: 918c58eac49bf4872a9b8692e7684304,
         type: 2}
       propertyPath: OnStopRecording.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
+      objectReference: {fileID: 1652698656}
+    - target: {fileID: 114584937495193494, guid: 918c58eac49bf4872a9b8692e7684304,
+        type: 2}
+      propertyPath: OnStopRecording.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
       objectReference: {fileID: 1511906663}
-    - target: {fileID: 114584937495193494, guid: 918c58eac49bf4872a9b8692e7684304,
-        type: 2}
-      propertyPath: OnStopRecording.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Show
-      objectReference: {fileID: 0}
-    - target: {fileID: 114584937495193494, guid: 918c58eac49bf4872a9b8692e7684304,
-        type: 2}
-      propertyPath: OnStopRecording.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 224042584441937316, guid: 918c58eac49bf4872a9b8692e7684304,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224042584441937316, guid: 918c58eac49bf4872a9b8692e7684304,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224042584441937316, guid: 918c58eac49bf4872a9b8692e7684304,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 918c58eac49bf4872a9b8692e7684304, type: 2}
   m_IsPrefabAsset: 0
