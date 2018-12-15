@@ -8,7 +8,7 @@ public class Test : MonoBehaviour
 	{
 		print("start");
 		Input.location.Start();
-		MessageService.GetMessagesAroundAsync(Input.location.lastData, 5f);
+		//MessageService.GetMessagesAroundAsync(Input.location.lastData, 5f);
 
 		// MessageService.SaveMessage(
 		// 	new MessageData

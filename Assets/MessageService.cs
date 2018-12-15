@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public class MessageService
 {
-	public const string ServerUrl = "https://giant-sheep-96.localtunnel.me/messages";
+	public const string ServerUrl = "https://worldmessage.localtunnel.me/messages";
 
 	public static async void SaveMessage(MessageData msg)
 	{
@@ -60,7 +60,8 @@ public class MessageService
 	}
 
 	public static async void GetMessagesAroundAsync(
-		LocationInfo coordinates,
+		float latitude,
+		float longitude,
 		float radius,
 		Action<MessageData[]> onDoneCallback = null)
 	{
