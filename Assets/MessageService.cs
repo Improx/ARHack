@@ -17,9 +17,9 @@ public class MessageService
 		form.AddField("altitude", msg.altitude.ToString());
 
 		string j = "{\"frames\":[";
-		foreach (BoneTransform[] frame in msg.frames)
+		foreach (BoneTransform[] frame in msg.animation)
 		{
-			j += "[";
+			j += "{\"bones\":[";
 			for (int i = 0; i < frame.Length; i++)
 			{
 				BoneTransform bone = frame[i];
@@ -32,7 +32,7 @@ public class MessageService
 					j += ",";
 				}
 			}
-			j += "]";
+			j += "]}";
 		}
 		j += "]}";
 		Debug.Log(j);
@@ -74,6 +74,7 @@ public class MessageService
 				// TODO: Check this
 				MessageServiceResponse data = JsonUtility.FromJson<MessageServiceResponse>(www.downloadHandler.text);
 				Debug.Log("First result: " + data.result[0]);
+				Debug.Log(data.result[0].animation);
 
 				// Or retrieve results as binary data
 				byte[] results = www.downloadHandler.data;

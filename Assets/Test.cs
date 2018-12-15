@@ -19,7 +19,7 @@ public class Test : MonoBehaviour
 						coordinates = new float[] { 1, 2 }
 					},
 					altitude = 300,
-					frames = new BoneTransform[][]
+					animation = new BoneTransform[][]
 					{
 						new BoneTransform[]
 						{

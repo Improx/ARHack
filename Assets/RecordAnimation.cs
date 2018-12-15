@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using HuaweiARUnitySDK;
 using Common;
 using HuaweiARInternal;
+using HuaweiARUnitySDK;
+using UnityEngine;
 
-public class RecordAnimation : MonoBehaviour {
+public class RecordAnimation : MonoBehaviour
+{
 
 	public static SkeletonAnimation Anim;
 	public static bool Recording = false;
@@ -85,7 +86,6 @@ public class RecordAnimation : MonoBehaviour {
 		print("STARTED RECORDING");
 	}
 
-
 	public void StopRecording()
 	{
 		Recording = false;
@@ -113,13 +113,13 @@ public class RecordAnimation : MonoBehaviour {
 				BoneTransform bone = new BoneTransform();
 				Vector3 pos = Anim.Frames[i].Positions[j];
 				Quaternion rot = Anim.Frames[i].WorldRotations[j];
-				bone.position = new float[] { pos.x, pos.y, pos.z};
-				bone.rotation = new float[] { rot.x, rot.y, rot.z, rot.w};
+				bone.position = new float[] { pos.x, pos.y, pos.z };
+				bone.rotation = new float[] { rot.x, rot.y, rot.z, rot.w };
 				frame[j] = bone;
 			}
 			frames[i] = frame;
 		}
-		messageData.frames = frames;
+		messageData.animation = frames;
 
 		print("Sending message");
 		MessageService.SaveMessage(messageData);
