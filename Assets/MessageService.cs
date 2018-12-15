@@ -16,6 +16,28 @@ public class MessageService
 		form.AddField("longitude", msg.location.coordinates[1].ToString());
 		form.AddField("altitude", msg.altitude.ToString());
 
+		string j = "{\"frames\":[";
+		foreach (BoneTransform[] frame in msg.frames)
+		{
+			j += "[";
+			for (int i = 0; i < frame.Length; i++)
+			{
+				BoneTransform bone = frame[i];
+				string bonej = bone.ToJson();
+				j += bonej;
+
+				// Don't add comma at end
+				if (i != frame.Length - 1)
+				{
+					j += ",";
+				}
+			}
+			j += "]";
+		}
+		j += "]}";
+		Debug.Log(j);
+		form.AddField("animation", j);
+
 		using(UnityWebRequest www = UnityWebRequest.Post(ServerUrl, form))
 		{
 			Debug.Log("saving");
