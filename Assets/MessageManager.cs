@@ -6,10 +6,10 @@ public class MessageManager : MonoBehaviour {
 
 	public Transform MessagePrefab;
 
-	[HideInInspector] public List<Transform> VisibleMessages = new List<Transform>();
+	[HideInInspector] public static List<Transform> VisibleMessages = new List<Transform>();
 
 	private float _time = 0;
-	private float _maxRefreshtime = 5;
+	private float _maxRefreshtime = 10;
 
 	// Use this for initialization
 	void Start () {
