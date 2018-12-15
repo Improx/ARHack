@@ -14,6 +14,10 @@ public class WorldMessage : MonoBehaviour
 	private string _scoreWord = "love";
 	private MessageData _data;
 
+	public List<SkinnedMeshRenderer> SkinnedMeshRenderers;
+
+	public static int NumModels = 3;
+
 	public void SetMessage(MessageData data)
 	{
 		_data = data;
@@ -56,5 +60,14 @@ public class WorldMessage : MonoBehaviour
 		MessageService.DownvoteMessage(_data._id);
 		_data.points--;
 		_scoreText.text = (_data.points).ToString() + _scoreWord;
+	}
+
+	private void SetModel(int modelIndex = 0)
+	{
+		for (int i = 0; i < NumModels; i++)
+		{
+			SkinnedMeshRenderers[i].enabled = false;
+			if (i == modelIndex) SkinnedMeshRenderers[i].enabled = true;
+		}
 	}
 }
