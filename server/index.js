@@ -30,8 +30,6 @@ app.get('/messages/:lat/:long', (req, res) => {
   }, (err, result) => {
     if(err || !result) {
       return res.status(500).send(err)
-    } else if(!result.length) {
-      return res.status(200).send('No messages!')
     }
 
     const messages = {result}
@@ -46,8 +44,6 @@ app.get('/messages', (req, res) => {
   Message.find({}, (err, result) => {
     if(err || !result) {
       return res.status(500).send(err)
-    } else if(!result.length) {
-      return res.status(200).send('No messages!')
     }
 
     const messages = {result}
@@ -60,10 +56,10 @@ app.get('/messages', (req, res) => {
 app.post('/messages', (req, res) => {
   console.log('UPLOADING MESSAGE')
   const {text, latitude, longitude, altitude, animation} = req.body
-  
-  console.log(animation)
 
   const animationParsed = JSON.parse(animation).frames
+
+  console.log(animationParsed.length ? `Total frames in animation: ${animationParsed.length}` : 'No frames')
 
   if(!text || !latitude || !longitude || !altitude) {
     return res.status(500).send('Missing required parameters!')
@@ -82,12 +78,38 @@ app.post('/messages', (req, res) => {
   message.save()
    .then(doc => {
      console.log('New message saved!')
-     return res.status(200).send(message)
+     return res.status(200).send(doc)
    })
    .catch(err => {
      console.error(err)
      return res.send(500).send(err)
    })
+})
+
+app.put('/messages/upvote/:id', (req, res) => {
+  const {id} = req.params
+  console.log(`Upvoting ${id}`)
+  Message.findById(id, (err, message) => {
+    if (err) return handleError(err);
+    message.points += 1;
+    message.save(function (err, updatedMessage) {
+      if (err) return handleError(err);
+      res.send(updatedMessage);
+    });
+  });
+})
+
+app.put('/messages/downvote/:id', (req, res) => {
+  const {id} = req.params
+  console.log(`Downvoting ${id}`)
+  Message.findById(id, (err, message) => {
+    if (err) return handleError(err);
+    message.points -= 1;
+    message.save(function (err, updatedMessage) {
+      if (err) return handleError(err);
+      res.send(updatedMessage);
+    });
+  });
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
