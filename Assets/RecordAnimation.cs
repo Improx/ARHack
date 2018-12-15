@@ -32,18 +32,50 @@ public class RecordAnimation : MonoBehaviour {
 			Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry> skeletons = new Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry>();
 			body.GetSkeletons(skeletons);
 
-			//TODO: other bones
+			//Getting bone positions
+			Vector3 neckPos = skeletons[ARBody.SkeletonPointName.Neck].Coordinate3D;
+			Vector3 headPos = skeletons[ARBody.SkeletonPointName.Head_Top].Coordinate3D;
+			Vector3 bodyCenterPos = skeletons[ARBody.SkeletonPointName.Body_Center].Coordinate3D;
+
+			Vector3 leftShoulderPos = skeletons[ARBody.SkeletonPointName.Left_Shoulder].Coordinate3D;
 			Vector3 leftElbowPos = skeletons[ARBody.SkeletonPointName.Left_Elbow].Coordinate3D;
 			Vector3 leftWristPos = skeletons[ARBody.SkeletonPointName.Left_Wrist].Coordinate3D;
 
-			Vector3 leftElbowUp = (leftWristPos - leftElbowPos).normalized;
-			Vector3 forward = Utils.PerpVectorRight(leftElbowUp);
-			Quaternion leftElbowWorldRot = Quaternion.LookRotation(forward, leftElbowUp);
+			Vector3 rightShoulderPos = skeletons[ARBody.SkeletonPointName.Right_Shoulder].Coordinate3D;
+			Vector3 rightElbowPos = skeletons[ARBody.SkeletonPointName.Right_Elbow].Coordinate3D;
+			Vector3 rightWristPos = skeletons[ARBody.SkeletonPointName.Right_Wrist].Coordinate3D;
 
-			Anim.LastFrame.Positions[6] = leftElbowPos;
-			Anim.LastFrame.WorldRotations[6] = leftElbowWorldRot;
+			Vector3 leftHipPos = skeletons[ARBody.SkeletonPointName.Left_Hip].Coordinate3D;
+			Vector3 leftKneePos = skeletons[ARBody.SkeletonPointName.Left_Knee].Coordinate3D;
+			Vector3 leftAnklePos = skeletons[ARBody.SkeletonPointName.Left_Ankle].Coordinate3D;
+
+			Vector3 rightHipPos = skeletons[ARBody.SkeletonPointName.Right_Hip].Coordinate3D;
+			Vector3 rightKneePos = skeletons[ARBody.SkeletonPointName.Right_Knee].Coordinate3D;
+			Vector3 rightAnklePos = skeletons[ARBody.SkeletonPointName.Right_Ankle].Coordinate3D;
+
+			//Actually set bone positions and rotationg in current frame
+			SetBoneToLastFrame(1, neckPos, headPos);
+			SetBoneToLastFrame(2, rightShoulderPos, rightElbowPos);
+			SetBoneToLastFrame(3, rightElbowPos, rightWristPos);
+			SetBoneToLastFrame(5, leftShoulderPos, leftElbowPos);
+			SetBoneToLastFrame(6, leftElbowPos, leftWristPos);
+			SetBoneToLastFrame(8, rightHipPos, rightKneePos);
+			SetBoneToLastFrame(9, rightKneePos, rightAnklePos);
+			SetBoneToLastFrame(11, leftHipPos, leftKneePos);
+			SetBoneToLastFrame(12, leftKneePos, leftAnklePos);
+
 		}
 
+	}
+
+	private static void SetBoneToLastFrame(int index, Vector3 thisBonePos, Vector3 childBonePos)
+	{
+		Vector3 boneUp = (childBonePos - thisBonePos).normalized;
+		Vector3 forward = Utils.PerpVectorRight(boneUp);
+		Quaternion worldRot = Quaternion.LookRotation(forward, boneUp);
+
+		Anim.LastFrame.Positions[index] = thisBonePos;
+		Anim.LastFrame.WorldRotations[index] = worldRot;
 	}
 
 	public static void StartRecording()
@@ -86,6 +118,7 @@ public class Frame
 	{
 		for (int i = 0; i < RecordAnimation.NumBones; i++)
 		{
+			Positions[i] = Vector3.zero;
 			WorldRotations[i] = Quaternion.identity;
 		}
 	}
