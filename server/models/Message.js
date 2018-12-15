@@ -1,14 +1,22 @@
 const mongoose = require('mongoose')
+require('mongoose-double')(mongoose)
+
+const SchemaTypes = mongoose.Schema.Types;
 
 const BoneTransform = new mongoose.Schema({
   rotation: {
-    type: [Number],
+    type: [SchemaTypes.Double],
     length: 4
   },
   position: {
-    type: [Number],
+    type: [SchemaTypes.Double],
     length: 3
   }
+})
+
+
+const Frame = new mongoose.Schema({
+  bones: [BoneTransform]
 })
 
 const MessageSchema = new mongoose.Schema({
@@ -20,16 +28,16 @@ const MessageSchema = new mongoose.Schema({
       required: true
     },
     coordinates: {
-      type: [Number],
+      type: [SchemaTypes.Double],
       required: true
     }
   },
   altitude: {
-    type: Number,
+    type: SchemaTypes.Double,
     required: true
   },
   animation: {
-    type: [[BoneTransform]],
+    type: [Frame],
     required: false,
     default: undefined
   },
