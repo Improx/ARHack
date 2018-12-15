@@ -56,6 +56,7 @@ public class RecordAnimation : MonoBehaviour
 			Vector3 rightAnklePos = skeletons[ARBody.SkeletonPointName.Right_Ankle].Coordinate3D.FlipY();
 
 			//Actually set bone positions and rotationg in current frame
+			SetBoneToLastFrame(14, bodyCenterPos, neckPos);
 			SetBoneToLastFrame(1, neckPos, headPos);
 			SetBoneToLastFrame(2, rightShoulderPos, rightElbowPos);
 			SetBoneToLastFrame(3, rightElbowPos, rightWristPos);
