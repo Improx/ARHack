@@ -18,7 +18,7 @@ public class WorldMessage : MonoBehaviour
 
 	public SkinnedMeshRenderer manClothes;
 
-	public static int NumModels = 4;
+	public static int NumModels = 5;
 
 	public void SetMessage(MessageData data)
 	{
