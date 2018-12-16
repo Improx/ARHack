@@ -37,6 +37,8 @@ public class MessageRecorder : MonoBehaviour
 	{
 		SubmitText();
 
+		_inputField.text = string.Empty;
+
 		print("Sending message");
 		MessageService.SaveMessage(CurrentMessage);
 		print("Message sent");
