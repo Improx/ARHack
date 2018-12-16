@@ -1,10 +1,10 @@
 ﻿namespace BodyARSample
 {
-    using UnityEngine;
     using System.Collections.Generic;
-    using HuaweiARUnitySDK;
     using Common;
     using HuaweiARInternal;
+    using HuaweiARUnitySDK;
+    using UnityEngine;
     public class BodyARController : MonoBehaviour
     {
         [Tooltip("body prefabs")]
@@ -16,30 +16,37 @@
         [Tooltip("logo visualizer")]
         public GameObject arDiscoveryLogoPrefabs;
 
-
         private List<ARAnchor> addedAnchors = new List<ARAnchor>();
         private List<ARPlane> newPlanes = new List<ARPlane>();
 
         private List<ARBody> newBodys = new List<ARBody>();
+
+        private bool _drawBody = true;
 
         private void Start()
         {
             DeviceChanged.OnDeviceChange += ARSession.SetDisplayGeometry;
         }
 
+        public void ToggleDrawBody()
+        {
+            _drawBody = !_drawBody;
+        }
+
         public void Update()
         {
-            _DrawBody();
-           // _DrawPlane();
+            if (_drawBody) _DrawBody();
+
+            // _DrawPlane();
             Touch touch;
-            if (ARFrame.GetTrackingState() != ARTrackable.TrackingState.TRACKING
-                || Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
+            if (ARFrame.GetTrackingState() != ARTrackable.TrackingState.TRACKING ||
+                Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
             {
 
             }
             else
             {
-              //  _DrawARLogo(touch);
+                //  _DrawARLogo(touch);
             }
         }
 
@@ -47,7 +54,7 @@
         {
             newBodys.Clear();
             ARFrame.GetTrackables<ARBody>(newBodys, ARTrackableQueryFilter.NEW);
-            
+
             for (int i = 0; i < newBodys.Count; i++)
             {
                 GameObject planeObject = Instantiate(bodyPrefabs, Vector3.zero, Quaternion.identity, transform);
@@ -72,7 +79,7 @@
             foreach (ARHitResult singleHit in hitResults)
             {
                 ARTrackable trackable = singleHit.GetTrackable();
-                if (trackable is ARPlane && ((ARPlane)trackable).IsPoseInPolygon(singleHit.HitPose))
+                if (trackable is ARPlane && ((ARPlane) trackable).IsPoseInPolygon(singleHit.HitPose))
                 {
                     if (addedAnchors.Count > 16)
                     {
