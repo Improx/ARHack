@@ -17,6 +17,7 @@
 
         private Camera m_skeletonCamera;
         private BodyARSample.BodyARController _arController;
+        private bool _showBody = true;
 
         private Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry> m_bodySkeletons = new Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry>();
         private List<KeyValuePair<ARBody.SkeletonPointName, ARBody.SkeletonPointName>> m_connections = new List<KeyValuePair<ARBody.SkeletonPointName, ARBody.SkeletonPointName>>();
@@ -71,38 +72,40 @@
 
         public void ShowBody()
         {
-            foreach (var item in m_skeletonPointObject)
-            {
-                item.SetActive(true);
-            }
+            _showBody = true;
+            // foreach (var item in m_skeletonPointObject)
+            // {
+            //     item.SetActive(true);
+            // }
 
-            foreach (var item in m_lines)
-            {
-                item.SetActive(true);
-            }
+            // foreach (var item in m_lines)
+            // {
+            //     item.SetActive(true);
+            // }
 
-            foreach (var item in m_skeletonConnectionRenderer)
-            {
-                item.gameObject.SetActive(true);
-            }
+            // foreach (var item in m_skeletonConnectionRenderer)
+            // {
+            //     item.gameObject.SetActive(true);
+            // }
         }
 
         public void HideBody()
         {
-            foreach (var item in m_skeletonPointObject)
-            {
-                item.SetActive(false);
-            }
+            _showBody = false;
+            // foreach (var item in m_skeletonPointObject)
+            // {
+            //     item.SetActive(false);
+            // }
 
-            foreach (var item in m_lines)
-            {
-                item.SetActive(false);
-            }
+            // foreach (var item in m_lines)
+            // {
+            //     item.SetActive(false);
+            // }
 
-            foreach (var item in m_skeletonConnectionRenderer)
-            {
-                item.gameObject.SetActive(false);
-            }
+            // foreach (var item in m_skeletonConnectionRenderer)
+            // {
+            //     item.gameObject.SetActive(false);
+            // }
         }
 
         private void _DonotShowPointAndConnections()
@@ -134,7 +137,7 @@
 
                 m_skeletonPointObject[(int) pair.Key].transform.position = m_skeletonCamera.ViewportToWorldPoint(worldCoord);
                 m_skeletonPointObject[(int) pair.Key].GetComponent<MeshRenderer>().material = m_skeletonMaterial;
-                m_skeletonPointObject[(int) pair.Key].SetActive(true);
+                m_skeletonPointObject[(int) pair.Key].SetActive(_showBody);
             }
 
             m_body.GetSkeletonConnection(m_connections);
@@ -158,7 +161,7 @@
 
                 m_skeletonConnectionRenderer[i].SetPosition(0, m_skeletonCamera.ViewportToWorldPoint(startScreenCoord));
                 m_skeletonConnectionRenderer[i].SetPosition(1, m_skeletonCamera.ViewportToWorldPoint(endScreenCoord));
-                m_skeletonConnectionRenderer[i].gameObject.SetActive(true);
+                m_skeletonConnectionRenderer[i].gameObject.SetActive(_showBody);
             }
         }
 
