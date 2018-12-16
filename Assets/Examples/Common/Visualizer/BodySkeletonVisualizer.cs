@@ -1,10 +1,9 @@
-﻿
-namespace Common
+﻿namespace Common
 {
-    using UnityEngine;
-    using HuaweiARUnitySDK;
     using System.Collections.Generic;
     using HuaweiARInternal;
+    using HuaweiARUnitySDK;
+    using UnityEngine;
     public class BodySkeletonVisualizer : MonoBehaviour
     {
         private ARBody m_body;
@@ -17,13 +16,14 @@ namespace Common
         private Material m_skeletonMaterial;
 
         private Camera m_skeletonCamera;
+        private BodyARSample.BodyARController _arController;
 
-        private Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry> m_bodySkeletons= new Dictionary
-            <ARBody.SkeletonPointName, ARBody.SkeletonPointEntry>();
-        private List<KeyValuePair<ARBody.SkeletonPointName, ARBody.SkeletonPointName>> m_connections = new List
-            <KeyValuePair<ARBody.SkeletonPointName, ARBody.SkeletonPointName>>();
-        public void Initialize(ARBody body)
+        private Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry> m_bodySkeletons = new Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry>();
+        private List<KeyValuePair<ARBody.SkeletonPointName, ARBody.SkeletonPointName>> m_connections = new List<KeyValuePair<ARBody.SkeletonPointName, ARBody.SkeletonPointName>>();
+        public void Initialize(ARBody body, BodyARSample.BodyARController controller)
         {
+            _arController = controller;
+
             m_body = body;
             m_skeletonMaterial = new Material(Shader.Find("Diffuse"));
 
@@ -34,7 +34,7 @@ namespace Common
                 m_skeletonPointObject[i].SetActive(false);
             }
 
-            for(int i = 0; i < m_maxSkeletonConnectionCnt; i++)
+            for (int i = 0; i < m_maxSkeletonConnectionCnt; i++)
             {
                 m_lines[i] = new GameObject("Lines");
                 m_lines[i].transform.localScale = new Vector3(1f, 1f, 1f);
@@ -51,7 +51,6 @@ namespace Common
             Update();
         }
 
-
         public void Update()
         {
             if (null == m_body)
@@ -62,7 +61,7 @@ namespace Common
             _DonotShowPointAndConnections();
             if (m_body.GetTrackingState() == ARTrackable.TrackingState.STOPPED)
             {
-                Destroy(gameObject);
+                _arController.DestroyVisualizer(this);
             }
             else if (m_body.GetTrackingState() == ARTrackable.TrackingState.TRACKING)
             {
@@ -70,6 +69,41 @@ namespace Common
             }
         }
 
+        public void ShowBody()
+        {
+            foreach (var item in m_skeletonPointObject)
+            {
+                item.SetActive(true);
+            }
+
+            foreach (var item in m_lines)
+            {
+                item.SetActive(true);
+            }
+
+            foreach (var item in m_skeletonConnectionRenderer)
+            {
+                item.gameObject.SetActive(true);
+            }
+        }
+
+        public void HideBody()
+        {
+            foreach (var item in m_skeletonPointObject)
+            {
+                item.SetActive(false);
+            }
+
+            foreach (var item in m_lines)
+            {
+                item.SetActive(false);
+            }
+
+            foreach (var item in m_skeletonConnectionRenderer)
+            {
+                item.gameObject.SetActive(false);
+            }
+        }
 
         private void _DonotShowPointAndConnections()
         {
@@ -85,22 +119,22 @@ namespace Common
         private void _UpdateBody()
         {
             m_body.GetSkeletons(m_bodySkeletons);
-			//print(m_bodySkeletons.Count);
+            //print(m_bodySkeletons.Count);
             foreach (var pair in m_bodySkeletons)
             {
                 if (!pair.Value.Is2DValid)
                 {
                     continue;
                 }
-                m_skeletonPointObject[(int)pair.Key].name = pair.Key.ToString();
+                m_skeletonPointObject[(int) pair.Key].name = pair.Key.ToString();
 
                 Vector3 glCoord = pair.Value.Coordinate2D;
-                Vector3 worldCoord = new Vector3((glCoord.x + 1) / 2 ,
-                    (glCoord.y + 1) / 2 , 3);
+                Vector3 worldCoord = new Vector3((glCoord.x + 1) / 2,
+                    (glCoord.y + 1) / 2, 3);
 
-                m_skeletonPointObject[(int)pair.Key].transform.position = m_skeletonCamera.ViewportToWorldPoint(worldCoord);
-                m_skeletonPointObject[(int)pair.Key].GetComponent<MeshRenderer>().material = m_skeletonMaterial;
-                m_skeletonPointObject[(int)pair.Key].SetActive(true);
+                m_skeletonPointObject[(int) pair.Key].transform.position = m_skeletonCamera.ViewportToWorldPoint(worldCoord);
+                m_skeletonPointObject[(int) pair.Key].GetComponent<MeshRenderer>().material = m_skeletonMaterial;
+                m_skeletonPointObject[(int) pair.Key].SetActive(true);
             }
 
             m_body.GetSkeletonConnection(m_connections);
@@ -115,19 +149,18 @@ namespace Common
                     continue;
                 }
                 Vector3 startGLScreenCoord = skpStart.Coordinate2D;
-                Vector3 startScreenCoord = new Vector3((startGLScreenCoord.x + 1) / 2 ,
-                    (startGLScreenCoord.y + 1) / 2 , 3);
+                Vector3 startScreenCoord = new Vector3((startGLScreenCoord.x + 1) / 2,
+                    (startGLScreenCoord.y + 1) / 2, 3);
 
                 Vector3 endGLScreenCoord = skpEnd.Coordinate2D;
-                Vector3 endScreenCoord = new Vector3((endGLScreenCoord.x + 1) / 2 ,
-                    (endGLScreenCoord.y + 1) / 2 , 3);
+                Vector3 endScreenCoord = new Vector3((endGLScreenCoord.x + 1) / 2,
+                    (endGLScreenCoord.y + 1) / 2, 3);
 
                 m_skeletonConnectionRenderer[i].SetPosition(0, m_skeletonCamera.ViewportToWorldPoint(startScreenCoord));
                 m_skeletonConnectionRenderer[i].SetPosition(1, m_skeletonCamera.ViewportToWorldPoint(endScreenCoord));
                 m_skeletonConnectionRenderer[i].gameObject.SetActive(true);
             }
         }
-
 
         void OnGUI()
         {
@@ -137,7 +170,7 @@ namespace Common
             bb.fontSize = 40;
             if (m_body.GetTrackingState() == ARTrackable.TrackingState.TRACKING)
             {
-               // GUI.Label(new Rect(0, 0, 200, 200), "BodyAction: " + m_body.GetBodyAction(), bb);
+                // GUI.Label(new Rect(0, 0, 200, 200), "BodyAction: " + m_body.GetBodyAction(), bb);
             }
         }
     }

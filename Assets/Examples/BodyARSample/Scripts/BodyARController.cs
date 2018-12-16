@@ -20,6 +20,7 @@
         private List<ARPlane> newPlanes = new List<ARPlane>();
 
         private List<ARBody> newBodys = new List<ARBody>();
+        private List<BodySkeletonVisualizer> allBodyPlanes = new List<BodySkeletonVisualizer>();
 
         private bool _drawBody = true;
 
@@ -31,13 +32,25 @@
         public void ToggleDrawBody()
         {
             _drawBody = !_drawBody;
+
+            foreach (var item in allBodyPlanes)
+            {
+                if (_drawBody)
+                {
+                    item.ShowBody();
+                }
+                else
+                {
+                    item.HideBody();
+                }
+            }
         }
 
         public void Update()
         {
-            if (_drawBody) _DrawBody();
-
             // _DrawPlane();
+            _DrawBody();
+
             Touch touch;
             if (ARFrame.GetTrackingState() != ARTrackable.TrackingState.TRACKING ||
                 Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
@@ -58,9 +71,17 @@
             for (int i = 0; i < newBodys.Count; i++)
             {
                 GameObject planeObject = Instantiate(bodyPrefabs, Vector3.zero, Quaternion.identity, transform);
-                planeObject.GetComponent<BodySkeletonVisualizer>().Initialize(newBodys[i]);
+                planeObject.GetComponent<BodySkeletonVisualizer>().Initialize(newBodys[i], this);
+                allBodyPlanes.Add(planeObject.GetComponent<BodySkeletonVisualizer>());
             }
         }
+
+        public void DestroyVisualizer(BodySkeletonVisualizer vis)
+        {
+            allBodyPlanes.Remove(vis);
+            Destroy(vis.gameObject);
+        }
+
         private void _DrawPlane()
         {
             newPlanes.Clear();
