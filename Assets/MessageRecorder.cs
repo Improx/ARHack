@@ -32,6 +32,7 @@ public class MessageRecorder : MonoBehaviour
 			coordinates = new float[] { GeoLocation.Latitude, GeoLocation.Longitude }
 		};
 		CurrentMessage.altitude = GeoLocation.Altitude;
+		CurrentMessage.animation = new FrameData[0];
 	}
 
 	public void SubmitText()

@@ -29,7 +29,7 @@ public class MessageSkeleton : MonoBehaviour
 	private void Update()
 	{
 		Vector3 animOffset = Vector3.zero;
-		if (Anim != null)
+		if (Anim != null && Anim.Frames.Count > 0)
 		{
 			_currentFrame++;
 			if (_currentFrame >= Anim.Frames.Count) _currentFrame = 0;

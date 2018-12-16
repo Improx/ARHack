@@ -16,7 +16,7 @@ public class WorldMessage : MonoBehaviour
 
 	public List<SkinnedMeshRenderer> SkinnedMeshRenderers;
 
-	public SkinnedMeshRenderer manClothes;
+	public List<SkinnedMeshRenderer> manClothes;
 
 	public static int NumModels = 5;
 
@@ -34,22 +34,30 @@ public class WorldMessage : MonoBehaviour
 		object_gps.Longitude = data.location.coordinates[1];
 		object_gps.Altitude = data.altitude;
 
-		//Set model
-		SetModel(data.modelId);
-
-		//Animation
-		SkeletonAnimation anim = new SkeletonAnimation();
-		for (int i = 0; i < data.animation.Length; i++)
+		if (data.animation.Length > 0)
 		{
-			anim.AddFrame();
-			for (int j = 0; j < RecordAnimation.NumBones; j++)
+			//Set model
+			SetModel(data.modelId);
+
+			//Animation
+			SkeletonAnimation anim = new SkeletonAnimation();
+			for (int i = 0; i < data.animation.Length; i++)
 			{
-				anim.LastFrame.Positions[j] = data.animation[i].bones[j].Position;
-				anim.LastFrame.WorldRotations[j] = data.animation[i].bones[j].Rotation;
+				anim.AddFrame();
+				for (int j = 0; j < RecordAnimation.NumBones; j++)
+				{
+					anim.LastFrame.Positions[j] = data.animation[i].bones[j].Position;
+					anim.LastFrame.WorldRotations[j] = data.animation[i].bones[j].Rotation;
+				}
 			}
+			MessageSkeleton skeleton = GetComponentInChildren<MessageSkeleton>();
+			skeleton.Anim = anim;
 		}
-		MessageSkeleton skeleton = GetComponentInChildren<MessageSkeleton>();
-		skeleton.Anim = anim;
+		else
+		{
+			// Hide model
+			SetModel(-1);
+		}
 	}
 
 	public void Upvote()
@@ -69,7 +77,11 @@ public class WorldMessage : MonoBehaviour
 
 	private void SetModel(int modelIndex = 0)
 	{
-		manClothes.enabled = modelIndex == 0;
+		foreach (var item in manClothes)
+		{
+			item.enabled = modelIndex == 0;
+		}
+
 		for (int i = 0; i < NumModels; i++)
 		{
 			SkinnedMeshRenderers[i].enabled = false;
