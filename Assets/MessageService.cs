@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public class MessageService
 {
-	public const string ServerUrl = "https://worldmessage.localtunnel.me/messages";
+	public const string ServerUrl = "https://worldmsg.localtunnel.me/messages";
 
 	public static async void UpvoteMessage(string id)
 	{
