@@ -6,6 +6,7 @@ public class MessageManager : MonoBehaviour
 {
 
 	public Transform MessagePrefab;
+	public float Range = 100f;
 
 	[HideInInspector] public static List<Transform> VisibleMessages = new List<Transform>();
 
@@ -25,7 +26,7 @@ public class MessageManager : MonoBehaviour
 	{
 		_time = _maxRefreshtime;
 
-		MessageService.GetMessagesAroundAsync(GeoLocation.Latitude, GeoLocation.Longitude, 50f, msgs =>
+		MessageService.GetMessagesAroundAsync(GeoLocation.Latitude, GeoLocation.Longitude, Range, msgs =>
 		{
 			foreach (var transf in VisibleMessages)
 			{
