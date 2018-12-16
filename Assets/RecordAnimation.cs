@@ -18,25 +18,29 @@ public class RecordAnimation : MonoBehaviour
 
 	private void Update()
 	{
-		if (Recording) Record();
+		if (Recording)
+		{
+			Anim.Frames.Add(RecordFrame());
+		}
 	}
 
-	private void Record()
+	public Frame RecordFrame()
 	{
 		VisibleBodies.Clear();
 		ARFrame.GetTrackables<ARBody>(VisibleBodies, ARTrackableQueryFilter.ALL);
-		//If see skeleton:
+
+		Frame frame = new Frame();
+		//If see skeleton, add bones to frame
 		if (VisibleBodies.Count > 0)
 		{
-
 			ARBody body = VisibleBodies[0];
 			//Here, Skeletons = points
-			Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry> skeletons = new Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry>();
+			var skeletons = new Dictionary<ARBody.SkeletonPointName, ARBody.SkeletonPointEntry>();
 			body.GetSkeletons(skeletons);
 
 			foreach (var point in skeletons)
 			{
-				if (!point.Value.Is3DValid) return;
+				if (!point.Value.Is3DValid) return frame;
 			}
 
 			Anim.AddFrame();
@@ -63,30 +67,31 @@ public class RecordAnimation : MonoBehaviour
 			Vector3 rightAnklePos = skeletons[ARBody.SkeletonPointName.Right_Ankle].Coordinate3D.FlipY().FlipZ();
 
 			//Actually set bone positions and rotationg in current frame
-			SetBoneToLastFrame(14, bodyCenterPos, neckPos);
-			SetBoneToLastFrame(1, neckPos, headPos);
-			SetBoneToLastFrame(2, rightShoulderPos, rightElbowPos);
-			SetBoneToLastFrame(3, rightElbowPos, rightWristPos);
-			SetBoneToLastFrame(5, leftShoulderPos, leftElbowPos);
-			SetBoneToLastFrame(6, leftElbowPos, leftWristPos);
-			SetBoneToLastFrame(8, rightHipPos, rightKneePos);
-			SetBoneToLastFrame(9, rightKneePos, rightAnklePos);
-			SetBoneToLastFrame(11, leftHipPos, leftKneePos);
-			SetBoneToLastFrame(12, leftKneePos, leftAnklePos);
+			SetBoneToFrame(frame, 14, bodyCenterPos, neckPos);
+			SetBoneToFrame(frame, 1, neckPos, headPos);
+			SetBoneToFrame(frame, 2, rightShoulderPos, rightElbowPos);
+			SetBoneToFrame(frame, 3, rightElbowPos, rightWristPos);
+			SetBoneToFrame(frame, 5, leftShoulderPos, leftElbowPos);
+			SetBoneToFrame(frame, 6, leftElbowPos, leftWristPos);
+			SetBoneToFrame(frame, 8, rightHipPos, rightKneePos);
+			SetBoneToFrame(frame, 9, rightKneePos, rightAnklePos);
+			SetBoneToFrame(frame, 11, leftHipPos, leftKneePos);
+			SetBoneToFrame(frame, 12, leftKneePos, leftAnklePos);
 
+			return frame;
 		}
-
+		return frame;
 	}
 
-	private void SetBoneToLastFrame(int index, Vector3 thisBonePos, Vector3 childBonePos)
+	private void SetBoneToFrame(Frame frame, int index, Vector3 thisBonePos, Vector3 childBonePos)
 	{
 		Vector3 boneUp = (childBonePos - thisBonePos).normalized;
 		if (boneUp.magnitude < 0.05f) boneUp = Vector3.up;
 		Vector3 forward = Utils.PerpVectorRight(boneUp);
 		Quaternion worldRot = Quaternion.LookRotation(forward, boneUp);
 
-		Anim.LastFrame.Positions[index] = thisBonePos;
-		Anim.LastFrame.WorldRotations[index] = worldRot;
+		frame.Positions[index] = thisBonePos;
+		frame.WorldRotations[index] = worldRot;
 	}
 
 	public void StartRecording()
