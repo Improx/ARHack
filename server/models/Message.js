@@ -41,7 +41,10 @@ const MessageSchema = new mongoose.Schema({
     required: false,
     default: undefined
   },
-  modelId: String,
+  modelId: {
+    type: Number,
+    required: false
+  },
   points: {
     type: Number,
     required: true,

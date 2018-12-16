@@ -16,6 +16,8 @@ public class WorldMessage : MonoBehaviour
 
 	public List<SkinnedMeshRenderer> SkinnedMeshRenderers;
 
+	public SkinnedMeshRenderer manClothes;
+
 	public static int NumModels = 3;
 
 	public void SetMessage(MessageData data)
@@ -67,6 +69,7 @@ public class WorldMessage : MonoBehaviour
 
 	private void SetModel(int modelIndex = 0)
 	{
+		manClothes.enabled = modelIndex == 0;
 		for (int i = 0; i < NumModels; i++)
 		{
 			SkinnedMeshRenderers[i].enabled = false;
