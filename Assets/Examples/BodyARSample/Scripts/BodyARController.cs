@@ -30,7 +30,7 @@
         public void Update()
         {
             _DrawBody();
-            _DrawPlane();
+           // _DrawPlane();
             Touch touch;
             if (ARFrame.GetTrackingState() != ARTrackable.TrackingState.TRACKING
                 || Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
@@ -39,7 +39,7 @@
             }
             else
             {
-                _DrawARLogo(touch);
+              //  _DrawARLogo(touch);
             }
         }
 
