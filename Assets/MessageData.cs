@@ -7,10 +7,10 @@ public class MessageData
 	public string _id;
 	public Location location;
 	public float altitude;
-	public string text;
+	public string text = String.Empty;
 	public FrameData[] animation;
-	public int modelId;
-	public int points;
+	public int modelId = 0;
+	public int points = 0;
 
 	public override string ToString()
 	{
