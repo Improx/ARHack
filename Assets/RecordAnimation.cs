@@ -121,9 +121,7 @@ public class RecordAnimation : MonoBehaviour
 			{
 				BoneTransform bone = new BoneTransform();
 				Vector3 pos = Anim.Frames[i].Positions[j];
-				print(pos);
 				Quaternion rot = Anim.Frames[i].WorldRotations[j];
-				print(rot);
 				bone.position = new float[] { pos.x, pos.y, pos.z };
 				bone.rotation = new float[] { rot.x, rot.y, rot.z, rot.w };
 				frame[j] = bone;
