@@ -10,7 +10,7 @@ public class RecordAnimationButton : MonoBehaviour
 	private Sprite _recordingSprite;
 	[SerializeField]
 	private Sprite _stopSprite;
-	private Image _iconImage;
+	private Image[] _iconImages;
 	private CanvasGroup _canvasGroup;
 	private bool _recording = false;
 
@@ -19,7 +19,7 @@ public class RecordAnimationButton : MonoBehaviour
 
 	private void Start()
 	{
-		_iconImage = GetComponent<Image>();
+		_iconImages = GetComponentsInChildren<Image>();
 		_canvasGroup = GetComponent<CanvasGroup>();
 	}
 
@@ -55,11 +55,17 @@ public class RecordAnimationButton : MonoBehaviour
 
 	private void SetSpriteRecord()
 	{
-		_iconImage.sprite = _recordingSprite;
+		foreach (var item in _iconImages)
+		{
+			item.sprite = _recordingSprite;
+		}
 	}
 
 	private void SetSpriteStop()
 	{
-		_iconImage.sprite = _stopSprite;
+		foreach (var item in _iconImages)
+		{
+			item.sprite = _stopSprite;
+		}
 	}
 }
