@@ -34,7 +34,7 @@ public class ObjectGPS : MonoBehaviour {
 
 	public Vector3 RelativePosition()
 	{
-		Vector3 startPos = new Vector3(0, -3, 5);
+		Vector3 startPos = new Vector3(0, -4, 0);
 		Vector3 pos = startPos + Utils.SpiralDistribution(_currentObject_i, 5, 0.3f, 40);
 		return pos;
 

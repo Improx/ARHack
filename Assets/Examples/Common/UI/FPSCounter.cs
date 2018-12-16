@@ -40,7 +40,7 @@ public class FPSCounter : MonoBehaviour
 		string pos = GeoLocation.Latitude.ToString() + " " + GeoLocation.Longitude.ToString() + " " + GeoLocation.Altitude.ToString();
 
 
-		GUI.Label(new Rect(0, 0, 200, 200), ObjectGPS.FocusPosition.ToString(), bb);
+		//GUI.Label(new Rect(0, 0, 200, 200), ObjectGPS.FocusPosition.ToString(), bb);
 	}
 
 }
