@@ -47,7 +47,7 @@
             BackGroundMaterial.SetVector(rightTopBottom, new Vector4(transformedUVCoords[4], transformedUVCoords[5],
                 transformedUVCoords[6], transformedUVCoords[7]));
             Pose p = ARFrame.GetPose();
-			m_camera.transform.position = 4 * p.position;
+			m_camera.transform.position = 10 * p.position;
 			m_camera.transform.rotation = p.rotation;
 
 			//MY:
