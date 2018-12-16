@@ -835,6 +835,16 @@ Prefab:
       propertyPath: OnStopRecording.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1652698656}
+    - target: {fileID: 114070790090871138, guid: ab47940175f844a6691af0516cdab037,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070790090871138, guid: ab47940175f844a6691af0516cdab037,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114496681895438414, guid: ab47940175f844a6691af0516cdab037,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -851,16 +861,6 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114945333950970644, guid: ab47940175f844a6691af0516cdab037,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070790090871138, guid: ab47940175f844a6691af0516cdab037,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070790090871138, guid: ab47940175f844a6691af0516cdab037,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
