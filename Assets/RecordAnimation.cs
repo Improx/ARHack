@@ -43,8 +43,6 @@ public class RecordAnimation : MonoBehaviour
 				if (!point.Value.Is3DValid) return frame;
 			}
 
-			Anim.AddFrame();
-
 			//Getting bone positions
 			Vector3 neckPos = skeletons[ARBody.SkeletonPointName.Neck].Coordinate3D.FlipY().FlipZ();
 			Vector3 headPos = skeletons[ARBody.SkeletonPointName.Head_Top].Coordinate3D.FlipY().FlipZ();
@@ -77,8 +75,6 @@ public class RecordAnimation : MonoBehaviour
 			SetBoneToFrame(frame, 9, rightKneePos, rightAnklePos);
 			SetBoneToFrame(frame, 11, leftHipPos, leftKneePos);
 			SetBoneToFrame(frame, 12, leftKneePos, leftAnklePos);
-
-			return frame;
 		}
 		return frame;
 	}
