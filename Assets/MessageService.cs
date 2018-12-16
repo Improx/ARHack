@@ -102,7 +102,8 @@ public class MessageService
 		float radius,
 		Action<MessageData[]> onDoneCallback = null)
 	{
-		using(UnityWebRequest www = UnityWebRequest.Get(ServerUrl))
+		string url = $"{ServerUrl}/{latitude}/{longitude}/{radius}";
+		using(UnityWebRequest www = UnityWebRequest.Get(url))
 		{
 			Debug.Log("call");
 			await www.SendWebRequest();

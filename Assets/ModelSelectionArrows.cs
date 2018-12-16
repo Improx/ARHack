@@ -29,6 +29,7 @@ public class ModelSelectionArrows : MonoBehaviour
 		_canvasGroup.alpha = 1f;
 		_canvasGroup.interactable = true;
 		_canvasGroup.blocksRaycasts = true;
+		UpdateThumbnail();
 	}
 
 	public void Hide()
@@ -40,7 +41,7 @@ public class ModelSelectionArrows : MonoBehaviour
 
 	public void IncrementModelIndex()
 	{
-		int modelCount = WorldMessage.NumModels;;
+		int modelCount = WorldMessage.NumModels;
 		int newId = MessageRecorder.Instance.CurrentMessage.modelId + 1;
 
 		MessageRecorder.Instance.CurrentMessage.modelId = newId >= modelCount ? 0 : newId;
