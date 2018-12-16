@@ -44,7 +44,7 @@ public class MessageService
 		}
 	}
 
-	public static async void SaveMessage(MessageData msg)
+	public static async void SaveMessage(MessageData msg, Action OnSavedCallback = null)
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("text", msg.text);
@@ -93,6 +93,7 @@ public class MessageService
 			}
 
 			Debug.Log(www.downloadHandler.text);
+			OnSavedCallback?.Invoke();
 		}
 	}
 

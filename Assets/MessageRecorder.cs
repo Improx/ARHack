@@ -11,10 +11,16 @@ public class MessageRecorder : MonoBehaviour
 	public static MessageRecorder Instance;
 
 	public MessageData CurrentMessage;
+	private MessageManager _messageManager;
 
 	private void Awake()
 	{
 		Instance = this;
+	}
+
+	private void Start()
+	{
+		_messageManager = FindObjectOfType<MessageManager>();
 	}
 
 	// Called from record button
@@ -40,7 +46,10 @@ public class MessageRecorder : MonoBehaviour
 		_inputField.text = string.Empty;
 
 		print("Sending message");
-		MessageService.SaveMessage(CurrentMessage);
+		MessageService.SaveMessage(CurrentMessage, () =>
+		{
+			_messageManager.RefreshMessages();
+		});
 		print("Message sent");
 	}
 }

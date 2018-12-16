@@ -18,12 +18,13 @@ public class MessageManager : MonoBehaviour
 		if (_time < 0)
 		{
 			RefreshMessages();
-			_time = _maxRefreshtime;
 		}
 	}
 
 	public void RefreshMessages()
 	{
+		_time = _maxRefreshtime;
+
 		MessageService.GetMessagesAroundAsync(GeoLocation.Latitude, GeoLocation.Longitude, 50f, msgs =>
 		{
 			foreach (var transf in VisibleMessages)
