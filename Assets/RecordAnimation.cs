@@ -20,7 +20,18 @@ public class RecordAnimation : MonoBehaviour
 	{
 		if (Recording)
 		{
-			Anim.Frames.Add(RecordFrame());
+			Frame newFrame = RecordFrame();
+			//Test for clamped frames
+			float distSum = 0;
+			for (int i = 0; i < NumBones; i++)
+			{
+				distSum += newFrame.Positions[i].magnitude;
+			}
+			if (distSum / NumBones > 0.2f)
+			{
+				Anim.Frames.Add(newFrame);
+			}
+			
 		}
 	}
 
@@ -135,7 +146,9 @@ public class SkeletonAnimation
 	public List<Frame> Frames = new List<Frame>();
 	public Frame LastFrame { get { return Frames[Frames.Count - 1]; } }
 
-	public void AddFrame() { Frames.Add(new Frame()); }
+	public void AddFrame() {
+		Frames.Add(new Frame());
+	}
 
 }
 
