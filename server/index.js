@@ -14,8 +14,8 @@ app.use(bodyParser.urlencoded({extended: false, limit: '100mb'}))
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.get('/messages/:lat/:long', (req, res) => {
-  const {lat, long} = req.params
+app.get('/messages/:lat/:long/:distance', (req, res) => {
+  const {lat, long, distance} = req.params
   Message.find({
     location: {
       $near: {
@@ -23,7 +23,7 @@ app.get('/messages/:lat/:long', (req, res) => {
           type: 'Point' ,
           coordinates: [ +lat , +long ]
        },
-       $maxDistance: 100,
+       $maxDistance: +distance,
        $minDistance: 0
       }
     }
@@ -55,11 +55,12 @@ app.get('/messages', (req, res) => {
 
 app.post('/messages', (req, res) => {
   console.log('UPLOADING MESSAGE')
-  const {text, latitude, longitude, altitude, animation} = req.body
+  const {text, latitude, longitude, altitude, animation, modelId} = req.body
 
   const animationParsed = JSON.parse(animation).frames
 
   console.log(animationParsed.length ? `Total frames in animation: ${animationParsed.length}` : 'No frames')
+  console.log(`Model id: ${modelId}`)
 
   if(!text || !latitude || !longitude || !altitude) {
     return res.status(500).send('Missing required parameters!')
@@ -72,7 +73,8 @@ app.post('/messages', (req, res) => {
       coordinates: [+latitude, +longitude]
     },
     altitude: +altitude,
-    animation: animationParsed
+    animation: animationParsed,
+    modelId: modelId
   })
 
   message.save()
@@ -81,6 +83,7 @@ app.post('/messages', (req, res) => {
      return res.status(200).send(doc)
    })
    .catch(err => {
+     console.log('error:')
      console.error(err)
      return res.send(500).send(err)
    })
